@@ -1,0 +1,192 @@
+/* Custom Fonts */
+.font-poppins {
+    font-family: 'Poppins', sans-serif;
+}
+
+.font-inter {
+    font-family: 'Inter', sans-serif;
+}
+
+.font-roboto-mono {
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* Game Board Styles */
+.game-board {
+    aspect-ratio: 1;
+}
+
+.cell {
+    background: rgba(55, 65, 81, 0.8);
+    border-radius: 1rem;
+    aspect-ratio: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    font-weight: bold;
+    position: relative;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.cell:hover {
+    transform: scale(1.05);
+    background: rgba(79, 70, 229, 0.2);
+}
+
+.cell.x {
+    color: #6366F1;
+}
+
+.cell.o {
+    color: #EC4899;
+}
+
+/* Animation Classes */
+.cell.win {
+    animation: winPulse 1s ease infinite;
+}
+
+.cell.draw {
+    animation: drawPulse 1s ease infinite;
+}
+
+@keyframes winPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px 10px rgba(99, 102, 241, 0.2); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+}
+
+@keyframes drawPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px 10px rgba(139, 92, 246, 0.2); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+}
+
+/* Symbol Animations */
+.cell.x::before,
+.cell.o::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    opacity: 0;
+    animation: symbolAppear 0.3s ease forwards;
+}
+
+.cell.x::before { content: 'X'; }
+.cell.o::before { content: 'O'; }
+
+@keyframes symbolAppear {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Turn Indicator */
+.player-turn {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.player-turn.active {
+    background: rgba(99, 102, 241, 0.2);
+    animation: turnPulse 2s ease infinite;
+}
+
+@keyframes turnPulse {
+    0% { background: rgba(99, 102, 241, 0.1); }
+    50% { background: rgba(99, 102, 241, 0.2); }
+    100% { background: rgba(99, 102, 241, 0.1); }
+}
+
+/* Score Animation */
+.score-update {
+    animation: scoreUpdate 0.5s ease;
+}
+
+@keyframes scoreUpdate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Message Animation */
+#gameMessage {
+    transition: opacity 0.3s ease;
+    min-height: 2em;
+}
+
+#gameMessage.show {
+    animation: messageSlide 0.5s ease;
+}
+
+@keyframes messageSlide {
+    0% { 
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Toast Styling */
+.toast {
+    background: rgba(31, 41, 55, 0.95);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    opacity: 0;
+    max-width: 300px;
+    animation: toastSlideIn 0.3s ease forwards;
+}
+
+.toast.removing {
+    animation: toastSlideOut 0.3s ease forwards;
+}
+
+@keyframes toastSlideIn {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes toastSlideOut {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+    .cell {
+        font-size: 3rem;
+    }
+    
+    .game-board {
+        max-width: 100%;
+    }
+} 
